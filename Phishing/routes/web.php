@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\TestEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // Preview the email by building it, and just returning it to the browser
+    //return new TestEmail;
+    
+    
+    // Send the email on a queue
+    Mail::to('jananiselvam15@gmail.com')->queue(new TestEmail('This is my important message'));
+    
+    //return view('welcome');
+    // return new TestEmail
 });
