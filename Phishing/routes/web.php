@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\MailingController;
+use App\Mail\TestEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Frontend.index');
 });
+
+Route::post('/sendemail', [MailingController::class, 'index'])->name('sendemail');
+
+// Route::post('/sendemail', function() {
+//     Mail::to('nabeesh.ahamed@gmail.com')->queue(new TestEmail('Some internal message'));
+//     return app(MailingController::class)->index();
+// })->name('sendemail');
+
+// Mail::to('nabeesh.ahamed@gmail.com')->queue(new TestEmail('Some internal message'));
+
+
+
