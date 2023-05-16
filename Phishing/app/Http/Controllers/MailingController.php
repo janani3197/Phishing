@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Mail;
 class MailingController extends Controller
 {
 
-    public function __construct()
-    {
-        // Wire up all the crud actions (create / read / update / delete) to their respective abilities
-        // defined in the Mailing policy.
+    // public function __construct()
+    // {
+    //     // Wire up all the crud actions (create / read / update / delete) to their respective abilities
+    //     // defined in the Mailing policy.
 
-        $this->authorizeResource(Mailing::class, 'mailing');
-    }
+    //     $this->authorizeResource(Mailing::class, 'mailing');
+    // }
 
     /**
      * Display a listing of the resource.

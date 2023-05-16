@@ -18,9 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return redirect()->route('mailings.create');
+// })->can('create', Mailing::class);
+
 Route::get('/', function () {
     return redirect()->route('mailings.create');
-})->can('create', Mailing::class);
+});
 
 
 Route::resource('mailings', MailingController::class);
