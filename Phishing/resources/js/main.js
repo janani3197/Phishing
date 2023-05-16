@@ -28,7 +28,7 @@ createApp({
     methods: {
         
         sendEmail() {
-            this.submitting = true; // set submitting to true
+            this.submitting = true;
             axios.post('/sendemail', {
                 email: this.email,
                 message: this.message,
@@ -40,7 +40,7 @@ createApp({
                 console.error(error);
                 alert('Failed to send email.');
             }).finally(() => {
-                this.submitting = false; // set submitting to false
+                this.submitting = false; 
             });
         }   
             

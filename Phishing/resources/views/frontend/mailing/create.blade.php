@@ -9,10 +9,16 @@
 <main id='app'>
 
 <div class="container mt-5">
+
+    @auth
+        <h3>Welcome back: {{ Auth::user()->name }}</h3>
+    @endauth
+        
+
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Custom Email</h5>
-            <form method="POST" action="/sendemail">
+            <form method="POST" action="{{ route('mailings.store') }}">
                 @csrf
                 <div class="mb-3">
                             <label for="name" class="form-label">Name</label>

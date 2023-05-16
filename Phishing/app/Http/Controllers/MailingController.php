@@ -2,43 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMailingRequest;
 use App\Mail\TestEmail;
 use App\Models\Mailing;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+// Convention: name controller after the model. E.g., EmailController, UserController, SmsController... 
 class MailingController extends Controller
 {
+
+    public function __construct()
+    {
+        // Wire up all the crud actions (create / read / update / delete) to their respective abilities
+        // defined in the Mailing policy.
+
+        $this->authorizeResource(Mailing::class, 'mailing');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $email = $request->input('email');
-        $message = $request->input('message');
-        $name = $request->input('name');
-
-
-
-        $user = User::create([
-
-            'email' => $email,
-            'name' => $name,
-        ]);
-        
-        $mailing = new Mailing([
-            'message' => $message,
-        ]);
-        
-        $mailing->user_id = $user->id;
-        $mailing->save();
-
-        // Mail::to($email)->queue(new TestEmail($message));
-
-        // Mail::to($email)->queue(new TestEmail($message));
-
-        return response()->json(['message' => 'Email sent successfully']);
+        return Mailing::all();
     }
 
     /**
@@ -46,15 +34,24 @@ class MailingController extends Controller
      */
     public function create()
     {
-        //
+        return view('frontend.mailing.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(StoreMailingRequest $request)
+    {        
+
+        $params = $request->validated();
+
+        $user = User::create($params);
+        
+        $mailing = $user->mailings()->create($params);
+        
+        Mail::to($user)->queue(new TestEmail($mailing->message));
+
+        return response()->json(['message' => 'Email sent successfully']);
     }
 
     /**
@@ -62,7 +59,7 @@ class MailingController extends Controller
      */
     public function show(Mailing $mailing)
     {
-        //
+        return $mailing;
     }
 
     /**
