@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MailingController;
+use App\Http\Controllers\VictimdetailsController;
 use App\Mail\TestEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,14 @@ Route::get('/', function () {
     return view('Frontend.index');
 });
 
+Route::get('/testform', function () {
+    return view('Frontend.testform');
+});
+
+
 Route::post('/sendemail', [MailingController::class, 'index'])->name('sendemail');
+Route::post('/testform', [VictimdetailsController::class, 'index'])->name('testform');
+
 
 // Route::post('/sendemail', function() {
 //     Mail::to('nabeesh.ahamed@gmail.com')->queue(new TestEmail('Some internal message'));
