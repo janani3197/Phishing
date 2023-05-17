@@ -6,6 +6,7 @@ use App\Mail\TestEmail;
 use App\Models\Mailing;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 
 class MailingController extends Controller
@@ -13,7 +14,7 @@ class MailingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): RedirectResponse
     {
         $email = $request->input('email');
         $message = $request->input('message');
@@ -38,7 +39,7 @@ class MailingController extends Controller
 
         // Mail::to($email)->queue(new TestEmail($message));
 
-        return response()->json(['message' => 'Email sent successfully']);
+        return redirect()->route('email-sent');
     }
 
     /**
