@@ -25,6 +25,10 @@ Route::get('/testform', function () {
     return view('Frontend.testform');
 });
 
+Route::get('/event', function () {
+    return view('Frontend.event');
+});
+
 Route::get('/email-sent', function () {
     return view('Frontend.thanks');
 })->name('email-sent');
