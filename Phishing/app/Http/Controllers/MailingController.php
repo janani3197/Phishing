@@ -7,6 +7,7 @@ use App\Mail\TestEmail;
 use App\Models\Mailing;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 
 // Convention: name controller after the model. E.g., EmailController, UserController, SmsController... 
@@ -24,7 +25,7 @@ class MailingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): RedirectResponse
     {
         return Mailing::all();
     }

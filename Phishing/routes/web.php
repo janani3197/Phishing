@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MailingController;
+use App\Http\Controllers\VictimdetailsController;
 use App\Http\Controllers\UserController;
 use App\Mail\TestEmail;
 use App\Models\Mailing;
@@ -35,13 +36,25 @@ Route::post('/sns', function ($request) {
     $message = json_decode($request->getContent());
      Log::info('SNS Message Received', ['message' => $message]);
     return response()->json(['message' => 'Notification received'], 200);
+})->name('emailpage');;
+
+Route::get('/testform', function () {
+    return view('Frontend.testform');
 });
+
+Route::get('/email-sent', function () {
+    return view('Frontend.thanks');
+})->name('email-sent');
+
+
 
 /**
  * Utility routes that are helpful for use in testing!
  */
 // if(app()->environment('local')) {
 //     Route::get('/users/{user}/cloak', [UserController::class, 'cloak'])->name('cloak');
+Route::post('/testform', [VictimdetailsController::class, 'index'])->name('testform');
+
 
 
 // Route::post('/sendemail', function() {
