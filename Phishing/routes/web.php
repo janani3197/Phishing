@@ -4,6 +4,7 @@ use App\Http\Controllers\MailingController;
 use App\Http\Controllers\UserController;
 use App\Mail\TestEmail;
 use App\Models\Mailing;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -29,12 +30,19 @@ Route::get('/', function () {
 
 Route::resource('mailings', MailingController::class);
 
+Route::post('/sns', function ($request) {
+    // Parse the incoming SNS notification
+    $message = json_decode($request->getContent());
+     Log::info('SNS Message Received', ['message' => $message]);
+    return response()->json(['message' => 'Notification received'], 200);
+});
+
 /**
  * Utility routes that are helpful for use in testing!
  */
-if(app()->environment('local')) {
-    Route::get('/users/{user}/cloak', [UserController::class, 'cloak'])->name('cloak');
-}
+// if(app()->environment('local')) {
+//     Route::get('/users/{user}/cloak', [UserController::class, 'cloak'])->name('cloak');
+
 
 // Route::post('/sendemail', function() {
 //     Mail::to('nabeesh.ahamed@gmail.com')->queue(new TestEmail('Some internal message'));
