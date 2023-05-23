@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MailingController;
 use App\Http\Controllers\VictimdetailsController;
+use App\Http\Controllers\EventController;
 use App\Mail\TestEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,7 @@ Route::get('/email-sent', function () {
 })->name('email-sent');
 
 
-
+Route::get('/phishing-chart',[EventController::class, 'generateChart'])->name('phishing-chart');
 Route::post('/sendemail', [MailingController::class, 'index'])->name('sendemail');
 Route::post('/testform', [VictimdetailsController::class, 'index'])->name('testform');
 

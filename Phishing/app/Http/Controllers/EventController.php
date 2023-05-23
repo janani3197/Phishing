@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\User;
+use ConsoleTVs\Charts\Classes\C3\Chart;
+use Charts;
+
 
 class EventController extends Controller
 {
@@ -36,6 +39,28 @@ class EventController extends Controller
             return redirect()->route('email-sent');
     }
 
+
+    public function generateChart()
+    {
+        $openedEmails = Event::where('event_type', 'opened')->count();
+        $ignoredEmails = Event::where('event_type', 'ignored')->count();
+        return response()->json([
+            'opened' => $openedEmails,
+            'ignored' => $ignoredEmails,
+        ]);
+
+        // $chart = Charts::create('pie', 'highcharts')
+        //     ->title('Phishing Emails')
+        //     ->labels(['Opened', 'Ignored'])
+        //     ->values([$openedEmails, $ignoredEmails])
+        //     ->dimensions(500, 300)
+        //     ->responsive(true);
+
+        // return view('Frontend.event', compact('chart'));
+
+
+
+    }
     /**
      * Show the form for creating a new resource.
      */
