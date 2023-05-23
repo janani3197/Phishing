@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -13,7 +14,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('users.index');
+    }
+
+    public function getUsersData(Request $request)
+    {
+        $users = User::all();
+
+        return view('frontend.mailing.dashboard', compact('users'));
     }
 
     /**

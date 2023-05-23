@@ -25,7 +25,7 @@ class MailingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): RedirectResponse
+    public function index(Request $request) 
     {
         return Mailing::all();
     }
@@ -52,7 +52,8 @@ class MailingController extends Controller
         
         Mail::to($user)->queue(new TestEmail($mailing->message));
 
-        return response()->json(['message' => 'Email sent successfully']);
+        // return response()->json(['message' => 'Email sent successfully']);
+        return view('frontend.mailing.thanks');
     }
 
     /**

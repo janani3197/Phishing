@@ -10,7 +10,7 @@
 
 <div class="container mt-5">
     Your email has been sent
-    <a href="{{ route('emailpage') }}" class="btn btn-primary">Back</a>
+    <a href="{{ route('mailings.create') }}" class="btn btn-primary">Back</a>
 </form>
 </div>
 </main>

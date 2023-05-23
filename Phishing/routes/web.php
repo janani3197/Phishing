@@ -39,12 +39,17 @@ Route::post('/sns', function ($request) {
 })->name('emailpage');;
 
 Route::get('/testform', function () {
-    return view('Frontend.testform');
+    return view('frontend.mailing.testform');
 });
 
-Route::get('/email-sent', function () {
-    return view('Frontend.thanks');
-})->name('email-sent');
+Route::get('/event', function () {
+    return view('frontend.mailing.event');
+});
+
+Route::get('/users', [UserController::class, 'getUsersData']);
+// Route::get('/email-sent', function () {
+//     return view('frontend.thanks');
+// })->name('email-sent');
 
 
 
