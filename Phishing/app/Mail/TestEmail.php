@@ -2,11 +2,13 @@
 
 namespace App\Mail;
 
+use App\Models\Mailing;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Headers;
 use Illuminate\Queue\SerializesModels;
 
 class TestEmail extends Mailable
@@ -16,7 +18,7 @@ class TestEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public string $message)
+    public function __construct(public string $message, public Mailing $mailing)
     {
         //
     }
@@ -38,6 +40,13 @@ class TestEmail extends Mailable
     {
         return new Content(
             markdown: 'mails.test',
+        );
+    }
+    
+    public function headers(): Headers
+    {
+        return new Headers(
+            messageId: $this->mailing->id . '@example.com'
         );
     }
 

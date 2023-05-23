@@ -34,7 +34,15 @@
                 </div>
                 <button type="submit"  class="btn btn-primary">Send</button>
             </form>
+
+
+
+            @if(isset($errors))
+                Errors:
+                {{ json_encode($errors->all()) }}
+            @enderror
         </div>
+
     </div>
 </div>
 </main>

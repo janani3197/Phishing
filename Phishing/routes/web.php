@@ -28,19 +28,15 @@ Route::get('/', function () {
     return redirect()->route('mailings.create');
 });
 
-
 Route::resource('mailings', MailingController::class);
 
-Route::post('/sns', function ($request) {
-    // Parse the incoming SNS notification
-    $message = json_decode($request->getContent());
-     Log::info('SNS Message Received', ['message' => $message]);
-    return response()->json(['message' => 'Notification received'], 200);
-})->name('emailpage');;
+// https://example.com/testform/4327hjs4532423
+Route::get('/testform/{mailing:hash}', function (Mailing $mailing) {
 
-Route::get('/testform', function () {
-    return view('frontend.mailing.testform');
-});
+    
+
+    return view('frontend.mailing.testform', compact('mailing'));
+})->name('please-give-all-routes-a-name');
 
 Route::get('/event', function () {
     return view('frontend.mailing.event');
