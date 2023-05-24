@@ -28,7 +28,7 @@ class EventController extends Controller
          ]);
      
      
-         $events = Event::sortable()->paginate(5);
+         $events = Event::sortable()->paginate(10);
      
          return view('Frontend.datatable', compact('events'));
      }

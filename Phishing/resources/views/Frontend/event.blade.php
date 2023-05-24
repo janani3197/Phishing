@@ -12,7 +12,7 @@
     </style>
 </head>
 <body>
-    <div id="app">
+    <div id="app", class="container">
         <h1>Email Statistics</h1>
         <div id="emailChartContainer">
             <canvas id="emailChart"></canvas>
