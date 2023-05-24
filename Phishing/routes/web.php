@@ -34,6 +34,8 @@ Route::get('/email-sent', function () {
     return view('Frontend.thanks');
 })->name('email-sent');
 
+Route::get('/datatable', [EventController::class, 'index'])->name('something');
+
 
 Route::get('/phishing-chart',[EventController::class, 'generateChart'])->name('phishing-chart');
 Route::post('/sendemail', [MailingController::class, 'index'])->name('sendemail');

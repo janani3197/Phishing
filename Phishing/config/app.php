@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -184,6 +185,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'ColumnSortable' => Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
 
     ])->toArray(),
 
