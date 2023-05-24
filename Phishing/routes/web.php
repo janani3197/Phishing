@@ -28,15 +28,14 @@ Route::get('/', function () {
     return redirect()->route('mailings.create');
 });
 
+
 Route::resource('mailings', MailingController::class);
 
-// https://example.com/testform/4327hjs4532423
-Route::get('/testform/{mailing:hash}', function (Mailing $mailing) {
 
-    
 
-    return view('frontend.mailing.testform', compact('mailing'));
-})->name('please-give-all-routes-a-name');
+Route::get('/testform', function () {
+    return view('frontend.mailing.testform');
+});
 
 Route::get('/event', function () {
     return view('frontend.mailing.event');
