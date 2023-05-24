@@ -23,7 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/sns', function (\Illuminate\Http\Request $request) {
     Log::info('Route is called...');
     $message = json_decode($request->getContent());
-    // Log::info($message);
+    $message1 =  json_encode($message,  JSON_PRETTY_PRINT);
+    Log::info($message1);
 
     if ($message->Type == 'SubscriptionConfirmation')
     {
@@ -36,7 +37,7 @@ Route::post('/sns', function (\Illuminate\Http\Request $request) {
         // Notification of message delivery
         $data = json_decode($message->Message);
         // $data->Headers;
-        $dataString = json_encode($message); // Convert the object to a string
+        $dataString = json_encode($data,  JSON_PRETTY_PRINT); // Convert the object to a string
         Log::info($dataString);
         
     }
