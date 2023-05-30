@@ -17,7 +17,6 @@ return new class extends Migration
             $table->timestamps();
             $table->string('message');
             $table->foreignIdFor(User::class);
-
         });
     }
 

@@ -47,11 +47,11 @@ class MailingController extends Controller
         $params = $request->validated();
 
         $user = User::create($params);
-        
+
         $mailing = $user->mailings()->create($params);
         
         Mail::to($user)->queue(new TestEmail($mailing->message, $mailing));
-
+        
         // return response()->json(['message' => 'Email sent successfully']);
         return view('frontend.mailing.thanks');
     }

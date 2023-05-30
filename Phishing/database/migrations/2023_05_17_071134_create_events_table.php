@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Mailing;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,10 +16,9 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('email_id');
+            $table->string('email');
             $table->string('event_type');
-            $table->string('mailing_id');
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Mailing::class);
         });
     }
 

@@ -26,35 +26,46 @@
     <button id="submitBtn" class="btn btn-primary">Submit</button>
     <table id="eventTable" class="table table-bordered">
     <tr>
-        <th width="80px">@sortablelink('id', 'ID')</th>
-        <th>@sortablelink('created_at', 'Date')</th>
-        <th>@sortablelink('email_id', 'Email')</th>
-        <th>@sortablelink('event_type', 'Event Type')</th>
-        <th>@sortablelink('user_id', 'Mail ID')</th>
+        <th>@sortablelink('name', 'Name')</th>
+        <th>@sortablelink('email', 'Email')</th>
+        <th>@sortablelink('mailings_count', 'Sent')</th>
+        <th>@sortablelink('delivered_mailings_count', 'Delievered')</th>
+        <th>@sortablelink('opened_mailings_count', 'Opened')</th>
+        <th>@sortablelink('opened_rate', 'Open rate')</th>
+        <th>@sortablelink('clicked_mailings_count', 'Clicked')</th>
     </tr>
-        @if($events->count())
-            @foreach($events as $key => $event)
-                <tr>
-                    <td>{{ $event->id }}</td>
-                    <td>{{ $event->created_at->format('d-m-Y') }}</td>
-                    <td>{{ $event->email_id }}</td>
-                    <td>{{ $event->event_type }}</td>
-                    <td>{{ $event->user_id }}</td>
-                </tr>
-            @endforeach
-        @endif
+           
+    @foreach($users as $user)
+            <tr>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->mailings_count }}</td>
+                <td>{{ $user->delivered_mailings_count }}</td>
+                <td>{{ $user->opened_mailings_count }}</td>
+                <td>
+                    {{ 
+                        $user->delivered_mailings_count 
+                            ? intval($user->opened_mailings_count * 100 / $user->delivered_mailings_count)
+                            : 0 
+                    }}
+                </td>
+                <td>{{ $user->clicked_mailings_count }}</td>
+            </tr>
+        @endforeach
     </table>
-    {!! $events->appends(\Request::except('page'))->render() !!}
+    {!! $users->appends(\Request::except('page'))->render() !!}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     var fromDateInput = flatpickr("#from_date", {
-        dateFormat: "d-m-Y"
+        dateFormat: "d-m-Y",
+        defaultDate: "{{ $fromDate }}"
     });
 
     var toDateInput = flatpickr("#to_date", {
-        dateFormat: "d-m-Y"
+        dateFormat: "d-m-Y",
+        defaultDate: "{{ $toDate }}"
     });
 
     document.getElementById('submitBtn').addEventListener('click', function() {
@@ -103,52 +114,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-<!-- public function getUsersData(Request $request)
-    {
-        $from = $request->input('from');
-        $to = $request->input('to');
-
-        $users = User::withCount([
-            'mailings' => function ($builder) use ($from, $to) {
-                if ($from)
-                    $builder->where('created_at', '>=', $from);
-
-                if ($to)
-                    $builder->where('created_at', '<=', $to);
-            },
-
-            'mailings as delivered_mailings_count' => function ($builder) use ($from, $to) {
-                $builder->whereRelation('events', 'event_type', 'Delivery');
-
-                if ($from)
-                    $builder->where('created_at', '>=', $from);
-
-                if ($to)
-                    $builder->where('created_at', '<=', $to);
-            },
-
-            'mailings as opened_mailings_count' => function ($builder) use ($from, $to) {
-                $builder->whereRelation('events', 'event_type', 'Open');
-
-                if ($from)
-                    $builder->where('created_at', '>=', $from);
-
-                if ($to)
-                    $builder->where('created_at', '<=', $to);
-            },
-
-            'mailings as clicked_mailings_count' => function ($builder) use ($from, $to) {
-                $builder->whereRelation('events', 'event_type', 'Click');
-
-                if ($from)
-                    $builder->where('created_at', '>=', $from);
-
-                if ($to)
-                    $builder->where('created_at', '<=', $to);
-            },
-
-        ])->sortable()->paginate(); -->

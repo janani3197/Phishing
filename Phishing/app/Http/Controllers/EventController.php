@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Mailing;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
@@ -58,9 +59,10 @@ class EventController extends Controller
             $data = json_decode($message->Message);
             
             $headers = $data->mail->headers;
+            $mailingId = -1;
             foreach ($headers as $header) {
                 if ($header->name === 'Message-Id') {
-                    $id = preg_replace('/[^0-9]/', '', $header->value);
+                    $mailingId = preg_replace('/[^0-9]/', '', $header->value);
                     break;
                 }
             }
@@ -70,17 +72,10 @@ class EventController extends Controller
 
             // get the value from notification to store 
 
-            $event = new Event();
-            $event -> event_type = $data->eventType;
-            $event -> email_id = $data->mail->destination[0];
-
-            $user = User::find((int) $id);
-            if ($user) {
-                $event->user_id = $user->id;
-            }
-            $event->save();
-
-            
+            Mailing::findOrFail($mailingId)->events()->create([
+                'event_type' => $data->eventType,
+                'email' => $data->mail->destination[0],
+            ]);
         }
         
         return response()->json(['message' => 'Notification received'], 200);

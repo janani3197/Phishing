@@ -43,7 +43,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public $sortable = ['email_id', 'event_type', 'user_id'];
+    // TODO: Is this a copy paste that needs updating?
+    public $sortable = [
+        'email', 
+        'name', 
+    ];
+    public $sortableAs = [
+        'mailings_count',
+        'delivered_mailings_count',
+        'opened_mailings_count',
+        'clicked_mailings_count'
+    ];
 
     public function mailings()
     {

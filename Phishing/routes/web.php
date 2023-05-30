@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\MailingController;
-use App\Http\Controllers\VictimdetailsController;
+use App\Http\Controllers\VictimDetailsController;
 use App\Http\Controllers\UserController;
 use App\Mail\TestEmail;
 use App\Models\Mailing;
@@ -44,19 +44,22 @@ Route::get('/event', function () {
     return view('frontend.mailing.event');
 });
 
-Route::get('/users', [UserController::class, 'getUsersData']);
+Route::get('/users', [UserController::class, 'getUsersData'])->name('users.dashboard');
 // Route::get('/email-sent', function () {
 //     return view('frontend.thanks');
 // })->name('email-sent');
 
-Route::get('/datatable', [UserController::class, 'sort_table'])->name('something');
+//Temporary route
+Route::get('/test', [UserController::class, 'getUserData'])->name('user.dashboard');
+
+Route::get('/datatable', [UserController::class, 'sortTable'])->name('something');
 
 /**
  * Utility routes that are helpful for use in testing!
  */
 // if(app()->environment('local')) {
 //     Route::get('/users/{user}/cloak', [UserController::class, 'cloak'])->name('cloak');
-Route::post('/testform', [VictimdetailsController::class, 'index'])->name('testform');
+Route::post('/testform', [VictimDetailsController::class, 'index'])->name('testform');
 
 Route::get('/phishing-chart',[EventController::class, 'generateChart'])->name('phishing-chart');
 

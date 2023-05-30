@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\victimdetails;
+use App\Models\VictimDetails;
 use Illuminate\Http\Request;
 
-class VictimdetailsController extends Controller
+class VictimDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +23,7 @@ class VictimdetailsController extends Controller
 
 
 
-        $victimdetails = victimdetails::create([
+        $victimdetails = VictimDetails::create([
 
             'name' => $name,
             'email' => $email,
