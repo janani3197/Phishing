@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -71,6 +72,24 @@ class UserController extends Controller
     {
         //
     }
+
+    public function sort_table(Request $request)
+     {
+        //  $email_id = $request->input('email_id');
+        //  $event_type = $request->input('event_type');
+
+
+        //  $event = new Event([
+        //      'email_id' => $email_id,
+        //      'event_type' => $event_type
+        //  ]);
+
+
+         $events = Event::sortable()->paginate(10);
+
+         return view('frontend.mailing.datatable', compact('events'));
+     }
+
 
     /**
      * Utility route that allows a dev to cloak as the given user. 

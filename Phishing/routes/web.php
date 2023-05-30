@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\MailingController;
 use App\Http\Controllers\VictimdetailsController;
 use App\Http\Controllers\UserController;
@@ -31,7 +32,9 @@ Route::get('/', function () {
 
 Route::resource('mailings', MailingController::class);
 
-
+Route::get('/welcome', function () {
+    return view('frontend.mailing.welcome');
+});
 
 Route::get('/testform', function () {
     return view('frontend.mailing.testform');
@@ -46,7 +49,7 @@ Route::get('/users', [UserController::class, 'getUsersData']);
 //     return view('frontend.thanks');
 // })->name('email-sent');
 
-
+Route::get('/datatable', [UserController::class, 'sort_table'])->name('something');
 
 /**
  * Utility routes that are helpful for use in testing!
@@ -54,6 +57,12 @@ Route::get('/users', [UserController::class, 'getUsersData']);
 // if(app()->environment('local')) {
 //     Route::get('/users/{user}/cloak', [UserController::class, 'cloak'])->name('cloak');
 Route::post('/testform', [VictimdetailsController::class, 'index'])->name('testform');
+
+Route::get('/phishing-chart',[EventController::class, 'generateChart'])->name('phishing-chart');
+
+Route::get('/event', function () {
+    return view('frontend.mailing.chart');
+});
 
 
 

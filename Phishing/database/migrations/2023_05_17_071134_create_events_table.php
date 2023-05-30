@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('email_id');
             $table->string('event_type');
+            $table->string('mailing_id');
             $table->foreignIdFor(User::class);
         });
     }
